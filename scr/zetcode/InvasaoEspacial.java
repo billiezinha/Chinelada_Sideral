@@ -1,16 +1,21 @@
-package zetcode;
+package com.zetcode;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 public class InvasaoEspacial extends JFrame {
 
+    private Tabuleiro tabuleiro;
+    private LogicaJogo logicaJogo;
+
     public InvasaoEspacial() {
         initUI();
+        iniciarJogo();
     }
 
     private void initUI() {
-        add(new Tabuleiro());
+        tabuleiro = new Tabuleiro();
+        add(tabuleiro);
 
         setTitle("Invasão Espacial");
         setSize(Commons.LARGURA_TABULEIRO, Commons.ALTURA_TABULEIRO);
@@ -20,9 +25,18 @@ public class InvasaoEspacial extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    private void iniciarJogo() {
+        logicaJogo = new LogicaJogo(tabuleiro);
+        logicaJogo.iniciarJogo();
+
+        Thread gameThread = new Thread(logicaJogo);
+        gameThread.setDaemon(true);
+        gameThread.start();
+    }
+
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            var invasaoEspacial = new InvasaoEspacial();
+            InvasaoEspacial invasaoEspacial = new InvasaoEspacial();
             invasaoEspacial.setVisible(true);
         });
     }
