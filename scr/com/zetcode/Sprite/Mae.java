@@ -8,7 +8,7 @@ import com.zetcode.Commons;
 
 public class Mae extends Sprite {
 
-    private final String naveMae = "src/images/mae.png";
+    private final String naveMae = "src/images/avo.png";
     private int largura;
 
     public Mae() {
@@ -38,12 +38,10 @@ public class Mae extends Sprite {
     }
 
     public void teclaLiberada(KeyEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'teclaLiberada'");
     }
 
     public void teclaPressionada(KeyEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'teclaPressionada'");
     }
 }

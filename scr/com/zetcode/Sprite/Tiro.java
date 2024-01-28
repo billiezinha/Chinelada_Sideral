@@ -14,7 +14,7 @@ public class Tiro extends Sprite {
         this.x = x;
         this.y = y;
 
-        var tiroImg = "src/images/tiro.png";
+        var tiroImg = "src/images/chinela.png";
         var ii = new ImageIcon(tiroImg);
         setImagem(ii.getImage());
     }

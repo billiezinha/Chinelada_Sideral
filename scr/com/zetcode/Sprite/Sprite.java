@@ -85,7 +85,7 @@ public class Sprite {
             this.x = x;
             this.y = y;
 
-            var bombaImg = "src/images/bomba.png";
+            var bombaImg = "src/images/mamona.png";
             var ii = new ImageIcon(bombaImg);
             setImagem(ii.getImage());
         }

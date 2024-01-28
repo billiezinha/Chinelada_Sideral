@@ -10,13 +10,13 @@ public interface Commons {
     int SOLO = 290;
     int ALTURA_BOMBA = 5;
 
-    int ALTURA_FILHO = 12;  // Alterado de ALTURA_ALIEN para ALTURA_FILHO
-    int LARGURA_FILHO = 12;  // Alterado de LARGURA_ALIEN para LARGURA_FILHO
-    int FILHO_X_INICIAL = 150;  // Alterado de ALIEN_X_INICIAL para FILHO_X_INICIAL
-    int FILHO_Y_INICIAL = 5;  // Alterado de ALIEN_Y_INICIAL para FILHO_Y_INICIAL
+    int ALTURA_FILHO = 12; 
+    int LARGURA_FILHO = 12; 
+    int FILHO_X_INICIAL = 150; 
+    int FILHO_Y_INICIAL = 5;  
 
     int MOVIMENTO_ABAIXO = 15;
-    int NUMERO_DE_FILHOS_PARA_DESTRUIR = 24;  // Alterado de NUMERO_DE_ALIENS_PARA_DESTRUIR para NUMERO_DE_FILHOS_PARA_DESTRUIR
+    int NUMERO_DE_FILHOS_PARA_DESTRUIR = 24;  
     int CHANCE = 5;
     int DELAY = 17;
     int LARGURA_MAE = 15;

@@ -11,7 +11,7 @@ public class Filho extends Sprite {
     private void initFilho(int x, int y) {
         setImagemFilho(x, y);
 
-        var bombaImg = "src/images/bomba.png";
+        var bombaImg = "src/images/mamona.png";
         var ii = new ImageIcon(bombaImg);
         setImagem(ii.getImage());
     }
@@ -27,7 +27,7 @@ public class Filho extends Sprite {
     }
 
     private void setImagemFilho(int x, int y) {
-        var jogadorImg = "src/images/jogador.png";
+        var jogadorImg = "src/images/avo.png";
         var ii = new ImageIcon(jogadorImg);
         setImagem(ii.getImage());
 
@@ -47,7 +47,7 @@ public class Filho extends Sprite {
             this.x = x;
             this.y = y;
 
-            var bombaImg = "src/images/bomba.png";
+            var bombaImg = "src/images/mamona.png";
             var ii = new ImageIcon(bombaImg);
             setImagem(ii.getImage());
         }

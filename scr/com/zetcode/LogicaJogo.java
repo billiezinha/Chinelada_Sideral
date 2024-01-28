@@ -27,7 +27,7 @@ public class LogicaJogo implements Runnable {
         this.mutex = new Semaphore(1);
         this.filhos = new ArrayList<>();
         this.mae = new Mae();
-        this.tiro = new Tiro(-1, -1);  // Modifique aqui para fornecer as coordenadas iniciais desejadas
+        this.tiro = new Tiro(-1, -1);  
         initFilhos();
     }
 
@@ -41,7 +41,19 @@ public class LogicaJogo implements Runnable {
     }
 
     public void iniciarJogo() {
-        // Inicialize aqui qualquer configuração necessária para o início do jogo
+        filhos = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+
+                var filho = new Filho(Commons.FILHO_INICIAL_X + 18 * j,
+                        Commons.FILHO_INICIAL_Y + 18 * i);
+                filhos.add(filho);
+            }
+        }
+
+        mae = new Mae();
+        tiro = new Tiro(-1,-1);
     }
 
     @Override
@@ -58,8 +70,6 @@ public class LogicaJogo implements Runnable {
             } finally {
                 mutex.release();
             }
-
-            // Aguarde um curto período de tempo para evitar sobrecarga
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -70,8 +80,6 @@ public class LogicaJogo implements Runnable {
 
     private void updateJogo() {
         if (mortes == Commons.NUMERO_DE_FILHOS_PARA_DESTRUIR) {
-            // Se o número necessário de filhos for destruído, encerre o jogo
-            // Você pode adicionar lógica adicional aqui
             System.out.println("Jogo ganho!");
             System.exit(0);
         }
@@ -80,14 +88,11 @@ public class LogicaJogo implements Runnable {
 
         // Atualize a mae
         mae.agir();
-
-        // Atualize o tiro
         if (tiro.isVisible()) {
             verificarColisaoTiroFilho();
             moverTiro();
         }
 
-        // Atualize os filhos
         updateFilhos();
 
         // Atualize as bombas dos filhos
