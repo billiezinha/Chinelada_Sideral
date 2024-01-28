@@ -1,5 +1,11 @@
 package com.zetcode;
 
+import com.zetcode.Sprite.Filho;
+import com.zetcode.Sprite.Mae;
+import com.zetcode.Sprite.Tiro;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +27,7 @@ public class LogicaJogo implements Runnable {
         this.mutex = new Semaphore(1);
         this.filhos = new ArrayList<>();
         this.mae = new Mae();
-        this.tiro = new Tiro();
+        this.tiro = new Tiro(-1, -1);  // Modifique aqui para fornecer as coordenadas iniciais desejadas
         initFilhos();
     }
 
@@ -67,6 +73,7 @@ public class LogicaJogo implements Runnable {
             // Se o número necessário de filhos for destruído, encerre o jogo
             // Você pode adicionar lógica adicional aqui
             System.out.println("Jogo ganho!");
+            System.exit(0);
         }
 
         // Atualize a lógica do jogo aqui
@@ -114,7 +121,7 @@ public class LogicaJogo implements Runnable {
                 if (tiroX >= filhoX && tiroX <= (filhoX + Commons.LARGURA_FILHO)
                         && tiroY >= filhoY && tiroY <= (filhoY + Commons.ALTURA_FILHO)) {
 
-                    filho.setMorrer(true);
+                    filho.setMorrendo(true);
                     mortes++;
                     tiro.morrer();
                 }
@@ -151,7 +158,7 @@ public class LogicaJogo implements Runnable {
 
         for (Filho filho : filhos) {
             int tiro = gerador.nextInt(15);
-            Filho.Bomba bomba = filho.getBomba();
+            Filho.Bomba bomba = (Filho.Bomba) filho.getBomba();
 
             if (tiro == Commons.CHANCE && filho.isVisible() && bomba.isMorta()) {
                 bomba.setMorta(false);
@@ -168,7 +175,7 @@ public class LogicaJogo implements Runnable {
                 if (bombaX >= maeX && bombaX <= (maeX + Commons.LARGURA_MAE)
                         && bombaY >= maeY && bombaY <= (maeY + Commons.ALTURA_MAE)) {
 
-                    mae.setMorrer(true);
+                    mae.setMorrendo(true);
                     bomba.setMorta(true);
                 }
             }
@@ -180,6 +187,47 @@ public class LogicaJogo implements Runnable {
                     bomba.setMorta(true);
                 }
             }
+        }
+    }
+
+    public void desenhar(Graphics g) {
+        if (mae.isVisible()) {
+            g.drawImage(mae.getImagem(), mae.getX(), mae.getY(), tabuleiro);
+        }
+
+        for (Filho filho : filhos) {
+            if (filho.isVisible()) {
+                g.drawImage(filho.getImagem(), filho.getX(), filho.getY(), tabuleiro);
+            }
+
+            Filho.Bomba bomba = (Filho.Bomba) filho.getBomba();
+            if (!bomba.isMorta()) {
+                g.drawImage(bomba.getImagem(), bomba.getX(), bomba.getY(), tabuleiro);
+            }
+        }
+
+        if (tiro.isVisible()) {
+            g.drawImage(tiro.getImagem(), tiro.getX(), tiro.getY(), tabuleiro);
+        }
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_SPACE && !tiro.isVisible()) {
+            tiro = new Tiro(mae.getX(), mae.getY());
+        } else if (key == KeyEvent.VK_LEFT) {
+            direcao = -1;
+        } else if (key == KeyEvent.VK_RIGHT) {
+            direcao = 1;
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
+            direcao = 0;
         }
     }
 }
