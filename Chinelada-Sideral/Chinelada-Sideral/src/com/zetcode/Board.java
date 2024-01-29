@@ -211,7 +211,7 @@ public class Board extends JPanel {
 
     private void moveShot() {
         int y = shot.getY();
-        y -= 4;
+        y -= 6;
         if (y < 0) {
             shot.die();
         } else {
