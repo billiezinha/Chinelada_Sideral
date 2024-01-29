@@ -1,8 +1,8 @@
-# Java Space Invaders
+# Java Chinelada Sideral
 Java Space Invaders game clone source code 
+Derrube meninos malinos com uma chinelada!
+cuidado com as mamonas!
 
 http://zetcode.com/javagames/spaceinvaders/
-
-![Space Invaders screenshot](spaceinvaders.png)
 
 Available under 2-Clause BSD License https://opensource.org/licenses/BSD-2-Clause  
