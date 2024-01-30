@@ -53,11 +53,11 @@ public class Board extends JPanel implements Runnable {
 
     private void gameInit() {
         moleques = new ArrayList<>();
-        molequeSemaphore = new Semaphore(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
+        molequeSemaphore = new Semaphore(Commons.NUMBER_OF_MOLEQUES_TO_DESTROY);
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
-                var moleque = new Moleque(Commons.ALIEN_INIT_X + 18 * j, Commons.ALIEN_INIT_Y + 18 * i);
+                var moleque = new Moleque(Commons.MOLEQUE_INIT_X + 18 * j, Commons.MOLEQUE_INIT_Y + 18 * i);
                 moleques.add(moleque);
             }
         }
@@ -129,7 +129,7 @@ public class Board extends JPanel implements Runnable {
     }
 
     private void update(){    
-        if (deaths == Commons.NUMBER_OF_ALIENS_TO_DESTROY) {
+        if (deaths == Commons.NUMBER_OF_MOLEQUES_TO_DESTROY) {
         inGame = false;
         timer.stop();
         message = "Game won!";
@@ -148,8 +148,8 @@ public class Board extends JPanel implements Runnable {
             int molequeY = moleque.getY();
 
             if (moleque.isVisible() && chinelo.isVisible()) {
-                if (chineloX >= (molequeX) && chineloX <= (molequeX + Commons.ALIEN_WIDTH) && chineloY >= (chineloY)
-                        && chineloY <= (molequeY + Commons.ALIEN_HEIGHT)) {
+                if (chineloX >= (molequeX) && chineloX <= (molequeX + Commons.MOLEQUE_WIDTH) && chineloY >= (chineloY)
+                        && chineloY <= (molequeY + Commons.MOLEQUE_HEIGHT)) {
 
                     var ii = new ImageIcon(explImg);
                     moleque.setImage(ii.getImage());
@@ -216,7 +216,7 @@ public class Board extends JPanel implements Runnable {
         if (alien.isVisible()) {
             int y = alien.getY();
 
-            if (y > Commons.GROUND - Commons.ALIEN_HEIGHT) {
+            if (y > Commons.GROUND - Commons.MOLEQUE_HEIGHT) {
                 inGame = false;
                 message = "Invasion!";
             }
@@ -244,7 +244,7 @@ public class Board extends JPanel implements Runnable {
         int senhoraChineloY = senhoraChinelo.getY();
 
         if (senhoraChinelo.isVisible() && !mamona.isDestroyed()) {
-            if (mamonaX >= (senhoraChineloX) && mamonaX <= (senhoraChineloX + Commons.PLAYER_WIDTH) && mamonaY >= (senhoraChineloY) && mamonaY <= (senhoraChineloY + Commons.PLAYER_HEIGHT)) {
+            if (mamonaX >= (senhoraChineloX) && mamonaX <= (senhoraChineloX + Commons.SENHORA_CHINELO_WIDTH) && mamonaY >= (senhoraChineloY) && mamonaY <= (senhoraChineloY + Commons.SENHORA_CHINELO_HEIGHT)) {
 
                 var ii = new ImageIcon(explImg);
                 senhoraChinelo.setImage(ii.getImage());
@@ -259,7 +259,7 @@ public class Board extends JPanel implements Runnable {
         if (!mamona.isDestroyed()) {
             mamona.setY(mamona.getY() + 1);
 
-            if (mamona.getY() >= Commons.GROUND - Commons.BOMB_HEIGHT) {
+            if (mamona.getY() >= Commons.GROUND - Commons.MAMONA_HEIGHT) {
                 mamona.setDestroyed(true);
             }
         }
