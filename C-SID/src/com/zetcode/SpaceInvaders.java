@@ -14,7 +14,7 @@ public class SpaceInvaders extends JFrame  {
 
         add(new Board());
 
-        setTitle("Space Invaders");
+        setTitle("Chinelada Sideral");
         setSize(Commons.BOARD_WIDTH, Commons.BOARD_HEIGHT);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,9 +23,7 @@ public class SpaceInvaders extends JFrame  {
     }
 
     public static void main(String[] args) {
-
         EventQueue.invokeLater(() -> {
-
             var ex = new SpaceInvaders();
             ex.setVisible(true);
         });
