@@ -2,20 +2,20 @@ package com.zetcode.sprite;
 
 import javax.swing.ImageIcon;
 
-public class Shot extends Sprite {
+public class Chinelo extends Sprite {
 
-    public Shot() {
+    public Chinelo() {
     }
 
-    public Shot(int x, int y) {
+    public Chinelo(int x, int y) {
 
         initShot(x, y);
     }
 
     private void initShot(int x, int y) {
 
-        var shotImg = "src/images/shot.png";
-        var ii = new ImageIcon(shotImg);
+        var chineloImg = "src/images/chinelo.png";
+        var ii = new ImageIcon(chineloImg);
         setImage(ii.getImage());
 
         int H_SPACE = 6;

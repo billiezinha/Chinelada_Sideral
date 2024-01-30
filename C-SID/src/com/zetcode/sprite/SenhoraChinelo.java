@@ -5,18 +5,18 @@ import com.zetcode.Commons;
 import javax.swing.ImageIcon;
 import java.awt.event.KeyEvent;
 
-public class Player extends Sprite {
+public class SenhoraChinelo extends Sprite {
 
     private int width;
 
-    public Player() {
+    public SenhoraChinelo() {
 
         initPlayer();
     }
 
     private void initPlayer() {
 
-        var playerImg = "src/images/player.png";
+        var playerImg = "src/images/senhoraChinelo.png";
         var ii = new ImageIcon(playerImg);
 
         width = ii.getImage().getWidth(null);

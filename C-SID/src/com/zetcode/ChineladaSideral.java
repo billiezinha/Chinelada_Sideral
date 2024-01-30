@@ -3,9 +3,9 @@ package com.zetcode;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
-public class SpaceInvaders extends JFrame  {
+public class ChineladaSideral extends JFrame  {
 
-    public SpaceInvaders() {
+    public ChineladaSideral() {
 
         initUI();
     }
@@ -24,7 +24,7 @@ public class SpaceInvaders extends JFrame  {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            var ex = new SpaceInvaders();
+            var ex = new ChineladaSideral();
             ex.setVisible(true);
         });
     }
