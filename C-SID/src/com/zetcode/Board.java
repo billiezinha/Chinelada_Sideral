@@ -4,22 +4,14 @@ import com.zetcode.sprite.Alien;
 import com.zetcode.sprite.Player;
 import com.zetcode.sprite.Shot;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
+import javax.swing.*;
 
 public class Board extends JPanel implements Runnable {
 
@@ -37,6 +29,8 @@ public class Board extends JPanel implements Runnable {
 
     private Timer timer;
     private Thread animator;
+
+    private BufferedImage bufferImage;
 
     public Board() {
         initBoard();
@@ -85,23 +79,29 @@ public class Board extends JPanel implements Runnable {
     }
 
     private void doDrawing(Graphics g) {
-        g.setColor(Color.black);
-        g.fillRect(0, 0, d.width, d.height);
-        g.setColor(Color.green);
+        if (bufferImage == null) {
+            bufferImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        }
+
+        Graphics bufferGraphics = bufferImage.getGraphics();
+        bufferGraphics.setColor(Color.black);
+        bufferGraphics.fillRect(0, 0, d.width, d.height);
+        bufferGraphics.setColor(Color.green);
 
         if (inGame) {
-            g.drawLine(0, Commons.GROUND, Commons.BOARD_WIDTH, Commons.GROUND);
-            drawAliens(g);
-            drawPlayer(g);
-            drawShot(g);
-            drawBombing(g);
+            bufferGraphics.drawLine(0, Commons.GROUND, Commons.BOARD_WIDTH, Commons.GROUND);
+            drawAliens(bufferGraphics);
+            drawPlayer(bufferGraphics);
+            drawShot(bufferGraphics);
+            drawBombing(bufferGraphics);
         } else {
             if (timer.isRunning()) {
                 timer.stop();
             }
-            gameOver(g);
+            gameOver(bufferGraphics);
         }
 
+        g.drawImage(bufferImage, 0, 0, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
@@ -260,7 +260,7 @@ public class Board extends JPanel implements Runnable {
         while (inGame) {
             doGameCycle();
             timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = 6 * Commons.DELAY - timeDiff % (6 * Commons.DELAY);
+            sleep = 10 * Commons.DELAY - timeDiff % (10 * Commons.DELAY);
 
             try {
                 Thread.sleep(sleep);
@@ -304,41 +304,41 @@ public class Board extends JPanel implements Runnable {
     }
 
     private void drawAliens(Graphics g) {
-    for (Alien alien : aliens) {
-        if (alien.isVisible()) {
-            g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
-        }
+        for (Alien alien : aliens) {
+            if (alien.isVisible()) {
+                g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
+            }
 
-        if (alien.isDying()) {
-            alien.die();
-        }
-    }
-}
-
-private void drawPlayer(Graphics g) {
-    if (player.isVisible()) {
-        g.drawImage(player.getImage(), player.getX(), player.getY(), this);
-    }
-
-    if (player.isDying()) {
-        player.die();
-        inGame = false;
-    }
-}
-
-private void drawShot(Graphics g) {
-    if (shot.isVisible()) {
-        g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
-    }
-}
-
-private void drawBombing(Graphics g) {
-    for (Alien a : aliens) {
-        Alien.Bomb b = a.getBomb();
-
-        if (!b.isDestroyed()) {
-            g.drawImage(b.getImage(), b.getX(), b.getY(), this);
+            if (alien.isDying()) {
+                alien.die();
+            }
         }
     }
-}
+
+    private void drawPlayer(Graphics g) {
+        if (player.isVisible()) {
+            g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+        }
+
+        if (player.isDying()) {
+            player.die();
+            inGame = false;
+        }
+    }
+
+    private void drawShot(Graphics g) {
+        if (shot.isVisible()) {
+            g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
+        }
+    }
+
+    private void drawBombing(Graphics g) {
+        for (Alien a : aliens) {
+            Alien.Bomb b = a.getBomb();
+
+            if (!b.isDestroyed()) {
+                g.drawImage(b.getImage(), b.getX(), b.getY(), this);
+            }
+        }
+    }
 }
